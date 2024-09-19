@@ -137,12 +137,14 @@
                         <img :src="item.img" style="margin-top: 10px;"/>
                     </div>
                     <div style="padding: 10px">
-                        <div><el-tag>{{item.name}}|{{item.day}}天</el-tag></div>
                         <div>
-                            <el-tag :type="item.skill1.type === 1 ? 'success' : item.skill1.type === 2 ? 'info' : 'danger'" style="margin: 5px 5px 0 0">{{item.skill1.name}}</el-tag>
-                            <el-tag :type="item.skill2.type === 1 ? 'success' : item.skill2.type === 2 ? 'info' : 'danger'" style="margin: 5px 5px 0 0">{{item.skill2.name}}</el-tag>
-                            <el-tag :type="item.skill3.type === 1 ? 'success' : item.skill3.type === 2 ? 'info' : 'danger'" style="margin: 5px 5px 0 0">{{item.skill3.name}}</el-tag>
-                            <el-tag :type="item.skill4.type === 1 ? 'success' : item.skill4.type === 2 ? 'info' : 'danger'" style="margin: 5px 5px 0 0">{{item.skill4.name}}</el-tag>
+                            <el-tag style="margin-right: 5px">{{item.name}}</el-tag>
+                            <el-tag>{{item.day}}天</el-tag>
+                        </div>
+                        <div>
+                            <span v-for="skill in item.skills">
+                                <el-tag  :type="skill.type === 1 ? 'success' : skill.type === 2 ? 'info' : 'danger'" style="margin: 5px 5px 0 0">{{skill.name}}</el-tag>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -160,11 +162,11 @@
                 loading: false,//加载
                 pokemonList:{
                     "精灵组":[
-                        {name:"冰封怨灵",skill1:{name:"电磁巨炮",type:1},skill2:{name:"极度深寒",type:2},skill3:{name:"快意恩仇",type:2},skill4:{name:"冰天雪地",type:2},img:"./img/精灵组/冰封.png",day:1},
-                        {name:"雪精灵",skill1:{name:"电磁巨炮",type:1},skill2:{name:"极度深寒",type:2},skill3:{name:"快意恩仇",type:2},skill4:{name:"冰天雪地",type:2},img:"./img/精灵组/血精灵.png",day:1},
+                        {name:"冰封怨灵",skills:[{name:"电磁巨炮",type:1},{name:"极度深寒",type:2},{name:"快意恩仇",type:2},{name:"冰天雪地",type:2}],img:"./img/精灵组/冰封.png",day:1},
+                        {name:"雪精灵",skills:[{name:"电磁巨炮",type:1},{name:"极度深寒",type:2},{name:"快意恩仇",type:2},{name:"冰天雪地",type:2}],img:"./img/精灵组/血精灵.png",day:1},
                     ],
                     "天空组":[
-                        {name:"飞羽",skill1:{name:"电磁巨炮",type:1},skill2:{name:"极度深寒",type:2},skill3:{name:"快意恩仇",type:2},skill4:{name:"冰天雪地",type:2},img:"./img/天空组/飞羽.png",day:1},
+                        {name:"飞羽",skills:[{name:"电磁巨炮",type:1},{name:"极度深寒",type:2},{name:"快意恩仇",type:2},{name:"冰天雪地",type:2}],img:"./img/天空组/飞羽.png",day:1},
                     ],
                 }
             })
