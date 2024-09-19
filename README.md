@@ -12,6 +12,6 @@
 
 ### 代码同步到github
 ```cmd
-git remote add github https://github.com/your_username/your_github_repo.git
+git remote add github https://github.com/2541864996/roco-eggs-web
 git push github master
 ```
