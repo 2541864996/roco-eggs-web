@@ -1,0 +1,207 @@
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/vue"></script>
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/dist/index.css"/>
+    <script src="https://unpkg.com/element-plus"></script>
+    <!-- Import ElementPlus Icons-Vue -->
+    <script src="https://unpkg.com/@element-plus/icons-vue"></script>
+    <title>小草王孵蛋表</title>
+    <link rel="icon" href="./img/logo.png" />
+    <style>
+        #app{
+            height: 100%;
+            width: 100%;
+        }
+        .font,.font-title{
+            font-family: \6977\4f53,serif;
+            font-size: 15px;
+            font-weight: 700;
+        }
+        .font-title{
+            font-size: 20px;
+        }
+        /*页面灰掉样式*/
+        .grey{
+            -webkit-filter: grayscale(100%);
+            -moz-filter: grayscale(100%);
+            -ms-filter: grayscale(100%);
+            -o-filter: grayscale(100%);
+            filter: grayscale(100%);
+            filter: progid:DXImageTransform.Microsoft.BasicImage(grayscale=1);
+        }
+
+        .info{
+            display: flex;
+        }
+        .info-label{
+            background-color: #5d5dd9;
+            -webkit-border-bottom-left-radius: 25px;
+            -webkit-border-top-left-radius: 25px;
+            width: 40px;
+        }
+        .info-value{
+            margin-left: 10px;
+        }
+        .pokemon{
+            display:flex;
+            flex-wrap: wrap;
+            padding: 5px 0;
+        }
+        .pokemon-item{
+            width: calc((100% - 80px) / 8);
+            box-shadow: 2px 2px 6px 1px rgb(50 50 50 / 34%);
+            border-radius: 10px;
+            margin: 5px;
+        }
+        .pokemon-img{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+
+        .pokemon-item:hover{
+            background-color: rgba(58, 142, 230, 0.12);
+        }
+        /*内容的动画*/
+        .pokemon-item {
+            -webkit-animation: pokemon-item 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+            animation: pokemon-item 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+        @-webkit-keyframes pokemon-item {
+            0% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        @keyframes pokemon-item {
+            0% {
+                -webkit-transform: scale(0);
+                transform: scale(0);
+                opacity: 1;
+            }
+            100% {
+                -webkit-transform: scale(1);
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @media screen and (max-width: 1500px){
+            .pokemon-item{
+                width: calc((100% - 60px) / 6);
+            }
+        }
+        @media screen and (max-width: 1250px){
+            .pokemon-item{
+                width: calc((100% - 50px) / 5);
+            }
+        }
+        @media screen and (max-width: 1000px){
+            .pokemon-item{
+                width: calc((100% - 40px) / 4);
+            }
+        }
+        @media screen and (max-width: 750px){
+            .pokemon-item{
+                width: calc((100% - 30px) / 3);
+            }
+        }
+        @media screen and (max-width: 500px){
+            .pokemon-item{
+                width: calc((100% - 20px) / 2);
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div style="height: 100%;background-size: 100%;" :style="'background: rgba(255, 255, 255, 0.5) url(' + backgroundImg() + ');'" :class="greyFlag ? 'grey' : ''">
+        <div v-for="(pokemon,index) in Object.keys(pokemonList)" :key="index">
+            <div class="info">
+                <div class="info-label"></div>
+                <div class="info-value">{{pokemon}}</div>
+            </div>
+            <div class="pokemon">
+                <div v-for="(item,i) in pokemonList[pokemon]" :key="i" class="pokemon-item" :body-style="{ padding: '0' }">
+                    <div class="pokemon-img">
+                        <img :src="item.img" style="margin-top: 10px;"/>
+                    </div>
+                    <div style="padding: 10px">
+                        <div><el-tag>{{item.name}}|{{item.day}}天</el-tag></div>
+                        <div>
+                            <el-tag type="success" style="margin: 5px 5px 0 0">{{item.skill1}}</el-tag>
+                            <el-tag type="info" style="margin: 5px 5px 0 0">{{item.skill2}}</el-tag>
+                            <el-tag type="warning" style="margin: 5px 5px 0 0">{{item.skill3}}</el-tag>
+                            <el-tag type="danger" style="margin: 5px 5px 0 0">{{item.skill4}}</el-tag>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const{ createApp ,reactive ,toRefs,onMounted, ref }  = Vue;
+    const app = createApp({
+        setup(){
+            const state = reactive({
+                backgroundImgList: ["./img/十周年.jpg","./img/十二周年.jpg"],
+                greyFlag: 0,//页面置灰
+                loading: false,//加载
+                pokemonList:{
+                    "精灵组":[
+                        {name:"冰封怨灵",skill1:"电磁巨炮",skill2:"极度深寒",skill3:"快意恩仇",skill4:"冰天雪地",img:"./img/精灵组/冰封.png",day:1},
+                        {name:"冰封怨灵",skill1:"电磁巨炮",skill2:"极度深寒",skill3:"快意恩仇",skill4:"冰天雪地",img:"./img/精灵组/冰封.png",day:1},
+                        {name:"冰封怨灵",skill1:"电磁巨炮",skill2:"极度深寒",skill3:"快意恩仇",skill4:"冰天雪地",img:"./img/精灵组/冰封.png",day:1},
+                        {name:"冰封怨灵",skill1:"电磁巨炮",skill2:"极度深寒",skill3:"快意恩仇",skill4:"冰天雪地",img:"./img/精灵组/冰封.png",day:1},
+                        {name:"冰封怨灵",skill1:"电磁巨炮",skill2:"极度深寒",skill3:"快意恩仇",skill4:"冰天雪地",img:"./img/精灵组/冰封.png",day:1},
+                        {name:"雪精灵",skill1:"电磁巨炮",skill2:"极度深寒",skill3:"冰天雪地",skill4:"快意恩仇",img:"./img/精灵组/血精灵.png",day:1},
+                        {name:"雪精灵",skill1:"电磁巨炮",skill2:"极度深寒",skill3:"冰天雪地",skill4:"快意恩仇",img:"./img/精灵组/血精灵.png",day:1},
+                        {name:"雪精灵",skill1:"电磁巨炮",skill2:"极度深寒",skill3:"冰天雪地",skill4:"快意恩仇",img:"./img/精灵组/血精灵.png",day:1},
+                        {name:"雪精灵",skill1:"电磁巨炮",skill2:"极度深寒",skill3:"冰天雪地",skill4:"快意恩仇",img:"./img/精灵组/血精灵.png",day:1},
+                        {name:"冰封怨灵",skill1:"电磁巨炮",skill2:"极度深寒",skill3:"快意恩仇",skill4:"冰天雪地",img:"./img/精灵组/冰封.png",day:1},
+                        {name:"冰封怨灵",skill1:"电磁巨炮",skill2:"极度深寒",skill3:"快意恩仇",skill4:"冰天雪地",img:"./img/精灵组/冰封.png",day:1},
+                        {name:"雪精灵",skill1:"电磁巨炮",skill2:"极度深寒",skill3:"冰天雪地",skill4:"快意恩仇",img:"./img/精灵组/血精灵.png",day:1},
+                        {name:"雪精灵",skill1:"电磁巨炮",skill2:"极度深寒",skill3:"冰天雪地",skill4:"快意恩仇",img:"./img/精灵组/血精灵.png",day:1},
+                        {name:"雪精灵",skill1:"电磁巨炮",skill2:"极度深寒",skill3:"冰天雪地",skill4:"快意恩仇",img:"./img/精灵组/血精灵.png",day:1},
+                    ],
+                    "天空组":[
+                        {name:"飞羽",skill1:"电磁巨炮",skill2:"极度深寒",skill3:"冰天雪地",skill4:"快意恩仇",img:"./img/天空组/飞羽.png",day:1},
+                    ],
+                }
+            })
+            //初始化
+            const init = () => {
+                backgroundImg();
+            }
+            //初始化背景
+            const backgroundImg = () => {
+                let index = Math.floor(Math.random() * state.backgroundImgList.length);
+                // return state.backgroundImgList[index];
+                return ""
+            }
+            onMounted(() => {
+                init();
+            });
+            return{
+                init,
+                backgroundImg,
+                ...toRefs(state),
+            }
+        }
+    });
+    app.use(ElementPlus);
+    app.mount("#app");
+</script>
+</body>
+</html>
