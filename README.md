@@ -9,3 +9,9 @@
 
 ### 配置自定义域名
 ![](./img/其他/图片4.png)
+
+### 代码同步到github
+```cmd
+git remote add github https://github.com/your_username/your_github_repo.git
+git push github master
+```
