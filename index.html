@@ -14,11 +14,12 @@
             width: 100%;
         }
         .font,.font-title{
-            font-family: \6977\4f53,serif;
-            font-size: 15px;
-            font-weight: 700;
+
+            font-size: 16px;
         }
         .font-title{
+            font-family: \6977\4f53,serif;
+            font-weight: 800;
             font-size: 20px;
         }
         /*页面灰掉样式*/
@@ -59,7 +60,18 @@
             justify-content: center;
             align-items: center;
             padding: 5px 5px 0 5px;
+            position: relative;
+            min-height: 100px;
         }
+        /*.pokemon-img-loading{*/
+        /*    content: "";*/
+        /*    height: 100%;*/
+        /*    width: 100%;*/
+        /*    position: absolute;*/
+        /*    left: 0;*/
+        /*    top: 0;*/
+        /*    background: url("./img/loading.png") no-repeat center;*/
+        /*}*/
 
 
         .pokemon-item:hover{
@@ -128,12 +140,13 @@
         <div v-for="(pokemon,index) in Object.keys(pokemonList)" :key="index">
             <div class="info">
                 <div class="info-label"></div>
-                <div class="info-value">{{pokemon}}</div>
+                <div class="info-value font-title">{{pokemon}}</div>
             </div>
-            <div class="pokemon">
+            <div class="pokemon font">
                 <div v-for="(item,i) in pokemonList[pokemon]" :key="i" class="pokemon-item" :body-style="{ padding: '0' }">
                     <div class="pokemon-img">
-                        <img :src="'./img/宠物/' + pokemon + '/' + item.img" style="width: 100%;border-radius: 5px;"/>
+                        <img v-if="!item.imgLoading" :src="getPokemonImg(pokemon,item)" style="width: 100%;border-radius: 5px;"/>
+                        <img v-if="item.imgLoading" src="./img/loading.png" style="width: 100%;border-radius: 5px;"/>
                     </div>
                     <div style="padding: 5px">
                         <div>
@@ -142,7 +155,7 @@
                         </div>
                         <div>
                             <span v-for="skill in item.skills">
-                                <el-tag  :type="skill.type === 1 ? 'success' : skill.type === 2 ? 'info' : 'danger'" style="margin: 5px 5px 0 0">{{skill.name}}</el-tag>
+                                <el-tag :type="skill.type === 1 ? 'success' : skill.type === 2 ? 'info' : 'danger'" style="margin: 5px 5px 0 0">{{skill.name}}</el-tag>
                             </span>
                         </div>
                     </div>
@@ -159,24 +172,26 @@
                 backgroundImgList: ["./img/十周年.jpg","./img/十二周年.jpg"],
                 greyFlag: 0,//页面置灰
                 loading: false,//加载
+                imgBaseUrl: './img/宠物/',
                 pokemonList:{
                     "乖乖组":[
-                        {name:"金冠冥蛇",skills:[{name:"守护之力",type:1},{name:"毒雾",type:1},{name:"反射护盾",type:1},{name:"快意恩仇",type:2}],img:"守护之力-毒雾-反射护盾-快意恩仇-金冠冥蛇.png",day:1},
-                        {name:"梅花鹿",skills:[{name:"守护之力",type:1},{name:"毒雾",type:1},{name:"快意恩仇",type:2},{name:"冰天雪地",type:2}],img:"守护之力-毒雾-快意恩仇-冰天雪地-梅花鹿.png",day:1},
-                        {name:"梅花鹿",skills:[{name:"守护之力",type:1},{name:"毒雾",type:1}],img:"守护之力-毒雾-梅花鹿.png",day:1},
-                        {name:"梅花鹿",skills:[],img:"梅花鹿.png",day:1},
+                        {name:"金冠冥蛇",skills:[{name:"守护之力",type:1},{name:"毒雾",type:1},{name:"反射护盾",type:1},{name:"快意恩仇",type:2}],img:"守护之力-毒雾-反射护盾-快意恩仇-金冠冥蛇.png",day:1,imgLoading:true},
+                        {name:"梅花鹿",skills:[{name:"守护之力",type:1},{name:"毒雾",type:1},{name:"快意恩仇",type:2},{name:"冰天雪地",type:2}],img:"守护之力-毒雾-快意恩仇-冰天雪地-梅花鹿.png",day:1,imgLoading:true},
+                        {name:"梅花鹿",skills:[{name:"守护之力",type:1},{name:"毒雾",type:1}],img:"守护之力-毒雾-梅花鹿.png",day:1,imgLoading:true},
+                        {name:"梅花鹿",skills:[],img:"梅花鹿.png",day:1,imgLoading:true},
                     ],
                     "精灵组":[
-                        {name:"雪精灵",skills:[{name:"电磁巨炮",type:1},{name:"极度深寒",type:2},{name:"冰天雪地",type:2},{name:"快意恩仇",type:2}],img:"电磁巨炮-极度深寒-冰天雪地-快意恩仇-雪精灵.png",day:1},
-                        {name:"冰封怨灵",skills:[{name:"电磁巨炮",type:1},{name:"极度深寒",type:2},{name:"冰天雪地",type:2},{name:"快意恩仇",type:2}],img:"电磁巨炮-极度深寒-冰天雪地-快意恩仇-冰封怨灵.png",day:1},
-                        {name:"精灵多哥",skills:[{name:"火之刃",type:1},{name:"冰晶结界",type:1},{name:"飞叶刀",type:1},{name:"快意恩仇",type:2}],img:"火之刃-冰晶结界-飞叶刀-快意恩仇-精灵多哥.png",day:1},
-                        {name:"精灵多哥",skills:[{name:"火之刃",type:1},{name:"冰晶结界",type:1},{name:"幽灵镜",type:1},{name:"快意恩仇",type:2}],img:"火之刃-冰晶结界-幽灵镜-快意恩仇-精灵多哥.png",day:1},
+                        {name:"雪精灵",skills:[{name:"电磁巨炮",type:1},{name:"极度深寒",type:2},{name:"冰天雪地",type:2},{name:"快意恩仇",type:2}],img:"电磁巨炮-极度深寒-冰天雪地-快意恩仇-雪精灵.png",day:1,imgLoading:true},
+                        {name:"冰封怨灵",skills:[{name:"电磁巨炮",type:1},{name:"极度深寒",type:2},{name:"冰天雪地",type:2},{name:"快意恩仇",type:2}],img:"电磁巨炮-极度深寒-冰天雪地-快意恩仇-冰封怨灵.png",day:1,imgLoading:true},
+                        {name:"精灵多哥",skills:[{name:"火之刃",type:1},{name:"冰晶结界",type:1},{name:"飞叶刀",type:1},{name:"快意恩仇",type:2}],img:"火之刃-冰晶结界-飞叶刀-快意恩仇-精灵多哥.png",day:1,imgLoading:true},
+                        {name:"精灵多哥",skills:[{name:"火之刃",type:1},{name:"冰晶结界",type:1},{name:"幽灵镜",type:1},{name:"快意恩仇",type:2}],img:"火之刃-冰晶结界-幽灵镜-快意恩仇-精灵多哥.png",day:1,imgLoading:true},
                     ],
                 }
             })
             //初始化
             const init = () => {
                 backgroundImg();
+                imgLoading();
             }
             //初始化背景
             const backgroundImg = () => {
@@ -184,12 +199,36 @@
                 // return state.backgroundImgList[index];
                 return ""
             }
+            //预加载图片
+            const imgLoading = () => {
+                //得到所有图片进行预加载
+                let pokemonKeyList = Object.keys(state.pokemonList);
+                pokemonKeyList.forEach(key => {
+                    state.pokemonList[key].forEach(item => {
+                        let img = new Image()
+                        img.src = getPokemonImg(key,item);
+                        img.onload = function() {
+                           item.imgLoading = false;
+                        }
+                    })
+                })
+            }
+            /**
+             * 获取孵蛋图片
+             * @param pokemon 宠物组别
+             * @param item 孵蛋信息
+             * @returns {string} url
+             */
+            const getPokemonImg = (pokemon,item) => {
+                return state.imgBaseUrl + pokemon + '/' + item.img
+            }
             onMounted(() => {
                 init();
             });
             return{
                 init,
                 backgroundImg,
+                getPokemonImg,
                 ...toRefs(state),
             }
         }
