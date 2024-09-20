@@ -223,6 +223,12 @@
             })
             //初始化
             const init = () => {
+                let pokemonKeyList = Object.keys(state.pokemonList);
+                pokemonKeyList.forEach(key => {
+                    state.pokemonList[key].forEach(item => {
+                        item.imgLoading = true;
+                    })
+                })
                 backgroundImg();
                 imgLoading();
             }
