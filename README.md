@@ -10,8 +10,19 @@
 ### 配置自定义域名
 ![](./img/其他/图片4.png)
 
-### 代码同步到github
-```cmd
-git remote add github https://github.com/2541864996/roco-eggs-web
-git push github master
-```
+
+###设置gitee和github代码同步
+#### 配置github静态token
+![](./img/其他/图片5.png)
+![](./img/其他/图片6.png)
+![](./img/其他/图片7.png)
+![](./img/其他/图片8.png)
+![](./img/其他/图片9.png)
+
+> token生成需要复制出来 否则后续无法看见
+
+#### 配置gitee镜像同步
+![](./img/其他/图片10.png)
+
+#### 手动更新
+![](./img/其他/图片11.png)
