@@ -58,9 +58,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 5px 5px 0 5px;
         }
-
-
 
 
         .pokemon-item:hover{
@@ -134,9 +133,9 @@
             <div class="pokemon">
                 <div v-for="(item,i) in pokemonList[pokemon]" :key="i" class="pokemon-item" :body-style="{ padding: '0' }">
                     <div class="pokemon-img">
-                        <img :src="item.img" style="margin-top: 10px;width: 100%"/>
+                        <img :src="'./img/宠物/' + pokemon + '/' + item.img" style="width: 100%;border-radius: 5px;"/>
                     </div>
-                    <div style="padding: 10px">
+                    <div style="padding: 5px">
                         <div>
                             <el-tag style="margin-right: 5px">{{item.name}}</el-tag>
                             <el-tag>{{item.day}}天</el-tag>
@@ -162,13 +161,16 @@
                 loading: false,//加载
                 pokemonList:{
                     "乖乖组":[
-                        {name:"金冠冥蛇",skills:[{name:"守护之力",type:1},{name:"毒雾",type:1},{name:"反射护盾",type:1},{name:"快意恩仇",type:2}],img:"./img/宠物/乖乖组/守护之力-毒雾-反射护盾-快意恩仇-金冠冥蛇.png",day:1},
-                        {name:"梅花鹿",skills:[{name:"守护之力",type:1},{name:"毒雾",type:1},{name:"快意恩仇",type:2},{name:"冰天雪地",type:2}],img:"./img/宠物/乖乖组/守护之力-毒雾-快意恩仇-冰天雪地-梅花鹿.png",day:1},
-                        {name:"梅花鹿",skills:[{name:"守护之力",type:1},{name:"毒雾",type:1}],img:"./img/宠物/乖乖组/守护之力-毒雾-梅花鹿.png",day:1},
-                        {name:"梅花鹿",skills:[],img:"./img/宠物/乖乖组/梅花鹿.png",day:1},
+                        {name:"金冠冥蛇",skills:[{name:"守护之力",type:1},{name:"毒雾",type:1},{name:"反射护盾",type:1},{name:"快意恩仇",type:2}],img:"守护之力-毒雾-反射护盾-快意恩仇-金冠冥蛇.png",day:1},
+                        {name:"梅花鹿",skills:[{name:"守护之力",type:1},{name:"毒雾",type:1},{name:"快意恩仇",type:2},{name:"冰天雪地",type:2}],img:"守护之力-毒雾-快意恩仇-冰天雪地-梅花鹿.png",day:1},
+                        {name:"梅花鹿",skills:[{name:"守护之力",type:1},{name:"毒雾",type:1}],img:"守护之力-毒雾-梅花鹿.png",day:1},
+                        {name:"梅花鹿",skills:[],img:"梅花鹿.png",day:1},
                     ],
-                    "力量组":[
-                        {name:"",skills:[{name:"电磁巨炮",type:1},{name:"极度深寒",type:2},{name:"快意恩仇",type:2},{name:"冰天雪地",type:2}],img:"./img/天空组/飞羽.png",day:1},
+                    "精灵组":[
+                        {name:"雪精灵",skills:[{name:"电磁巨炮",type:1},{name:"极度深寒",type:2},{name:"冰天雪地",type:2},{name:"快意恩仇",type:2}],img:"电磁巨炮-极度深寒-冰天雪地-快意恩仇-雪精灵.png",day:1},
+                        {name:"冰封怨灵",skills:[{name:"电磁巨炮",type:1},{name:"极度深寒",type:2},{name:"冰天雪地",type:2},{name:"快意恩仇",type:2}],img:"电磁巨炮-极度深寒-冰天雪地-快意恩仇-冰封怨灵.png",day:1},
+                        {name:"精灵多哥",skills:[{name:"火之刃",type:1},{name:"冰晶结界",type:1},{name:"飞叶刀",type:1},{name:"快意恩仇",type:2}],img:"火之刃-冰晶结界-飞叶刀-快意恩仇-精灵多哥.png",day:1},
+                        {name:"精灵多哥",skills:[{name:"火之刃",type:1},{name:"冰晶结界",type:1},{name:"幽灵镜",type:1},{name:"快意恩仇",type:2}],img:"火之刃-冰晶结界-幽灵镜-快意恩仇-精灵多哥.png",day:1},
                     ],
                 }
             })
