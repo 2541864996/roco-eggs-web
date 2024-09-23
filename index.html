@@ -54,6 +54,28 @@
             box-shadow: 2px 2px 6px 1px rgb(50 50 50 / 34%);
             border-radius: 10px;
             margin: 5px;
+            overflow: hidden;
+        }
+        .sub{
+            width: 100px;
+            height: 100px;
+            transform: translate(50%, -50%);
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            z-index: 999;
+        }
+        .sub-text{
+            height: 24px;
+            line-height: 24px;
+            background: #1890ffb8;
+            color: #ffffff;
+            text-align: center;
+            -webkit-box-shadow: 0 2px 4px rgb(0 0 0 / 12%), 0 0 6px rgb(0 0 0 / 12%);
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            transform: translateY(-50%) rotate(45deg);
         }
         .pokemon-img{
             display: flex;
@@ -139,6 +161,9 @@
             </div>
             <div class="pokemon font">
                 <div v-for="(item,i) in pokemonList[pokemon]" :key="i" class="pokemon-item" :body-style="{ padding: '0' }">
+                    <div class="sub" v-if="item.subText !== undefined && item.subText !== ''">
+                        <div class="sub-text">{{item.subText}}</div>
+                    </div>
                     <div class="pokemon-img">
                         <img v-if="!item.imgLoading" :src="getPokemonImg(pokemon,item)" style="width: 100%;border-radius: 5px;"/>
                         <img v-if="item.imgLoading" src="./img/loading.gif" style="width: 100%;border-radius: 5px;"/>
@@ -180,12 +205,12 @@
                     "精灵组":[
                         {name:"雪精灵",day:1,skills:[{name:"电磁巨炮",type:1},{name:"极度深寒",type:2},{name:"冰天雪地",type:2},{name:"快意恩仇",type:2}],img:"电磁巨炮-极度深寒-冰天雪地-快意恩仇-雪精灵.png"},
                         {name:"冰封怨灵",day:1,skills:[{name:"电磁巨炮",type:1},{name:"极度深寒",type:2},{name:"冰天雪地",type:2},{name:"快意恩仇",type:2}],img:"电磁巨炮-极度深寒-冰天雪地-快意恩仇-冰封怨灵.png"},
-                        {name:"大耳帽兜",day:1,skills:[{name:"电磁巨炮",type:1},{name:"极度深寒",type:2},{name:"冰天雪地",type:2},{name:"快意恩仇",type:2}],img:"电磁巨炮-极度深寒-冰天雪地-快意恩仇-大耳帽兜.png"},
+                        {name:"大耳帽兜",day:1,skills:[{name:"电磁巨炮",type:1},{name:"极度深寒",type:2},{name:"冰天雪地",type:2},{name:"快意恩仇",type:2}],img:"电磁巨炮-极度深寒-冰天雪地-快意恩仇-大耳帽兜.png",subText:'必母'},
                         {name:"精灵多哥",day:1,skills:[{name:"火之刃",type:1},{name:"冰晶结界",type:1},{name:"飞叶刀",type:1},{name:"快意恩仇",type:2}],img:"火之刃-冰晶结界-飞叶刀-快意恩仇-精灵多哥.png"},
                         {name:"精灵多哥",day:1,skills:[{name:"火之刃",type:1},{name:"冰晶结界",type:1},{name:"幽灵镜",type:1},{name:"快意恩仇",type:2}],img:"火之刃-冰晶结界-幽灵镜-快意恩仇-精灵多哥.png"},
                         {name:"蓝色多哥",day:1,skills:[{name:"火之刃",type:1},{name:"冰晶结界",type:1},{name:"飞叶刀",type:1}],img:"火之刃-冰晶结界-飞叶刀-蓝色多哥.png"},
                         {name:"蓝色多哥",day:1,skills:[{name:"火之刃",type:1},{name:"冰晶结界",type:1},{name:"幽灵镜",type:1}],img:"火之刃-冰晶结界-幽灵镜-蓝色多哥.png"},
-                        {name:"艾莉儿",day:1,skills:[{name:"快意恩仇",type:2}],img:"快意恩仇-艾莉儿.png"},
+                        {name:"艾莉儿",day:1,skills:[{name:"快意恩仇",type:2}],img:"快意恩仇-艾莉儿.png",subText:'必母'},
                     ],
                     "植物组":[
                         {name:"曼陀罗猪神",day:1,skills:[{name:"水波术",type:1},{name:"毒雾",type:1},{name:"麻醉粉",type:1},{name:"快意恩仇",type:2}],img:"水波术-毒雾-麻醉粉-快意恩仇-曼陀罗猪神.png"},
